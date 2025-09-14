@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+def pulumiVersion = '0.13.0' // adjust to latest if needed
+
+dependencies {
+    implementation "com.pulumi:pulumi:${pulumiVersion}"
+    implementation "com.pulumi:aws:${pulumiVersion}" // (future use; harmless now)
+    implementation "com.pulumi:gcp:${pulumiVersion}" // (future stub)
+    implementation "com.pulumi:kubernetes:${pulumiVersion}"
+    implementation "org.slf4j:slf4j-simple:2.0.13"
+}
+
+application {
+    // Not strictly required by Pulumi, but enables `./gradlew run` sanity checks
+    mainClass = 'io.bitvelocity.infra.AppStack'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

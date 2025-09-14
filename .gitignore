@@ -1,0 +1,20 @@
+# Pulumi local state (if using local backend)
+.pulumi/
+Pulumi.*.yaml.backup
+Pulumi.*.json
+
+# Gradle / Build
+.gradle/
+build/
+out/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Logs
+*.log
+
+# Secrets (if any secret files introduced later)
+secrets/*.json

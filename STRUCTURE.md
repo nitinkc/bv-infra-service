@@ -1,0 +1,35 @@
+# Repository Scaffold – bv-infra-service
+
+```
+bv-infra-service/
+  README.md
+  ARCHITECTURE.md
+  pulumi/
+    src/
+      CloudProvider.java
+      CloudProviderFactory.java
+      LocalProvider.java
+      GcpProvider.java
+      AwsProvider.java
+      AzureProvider.java
+      modules/
+        NetworkModule.java
+        KubernetesModule.java
+        PostgresModule.java
+        KafkaModule.java
+        RedisModule.java
+        VaultModule.java
+        ObservabilityModule.java
+    stacks/
+      local/
+      dev/
+      staging/
+      west/
+  policies/
+    pulumi/
+      disallowPublicLB.ts
+  scripts/
+    pulumi-up.sh
+    pulumi-destroy.sh
+    diff-report.sh
+```

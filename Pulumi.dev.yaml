@@ -1,0 +1,7 @@
+config:
+  bitvelocity-infra:cloudProvider: local
+  bitvelocity-infra:regionEast: us-east1
+  bitvelocity-infra:regionWest: us-west1
+  bitvelocity-infra:meshEnabled: "false"
+  bitvelocity-infra:replication.kafka.enabled: "false"
+  bitvelocity-infra:db.orders.mode: primary
