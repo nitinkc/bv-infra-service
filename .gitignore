@@ -18,3 +18,5 @@ out/
 
 # Secrets (if any secret files introduced later)
 secrets/*.json
+
+bin/
