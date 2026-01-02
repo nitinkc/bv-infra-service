@@ -2,7 +2,6 @@ package io.bitvelocity.infra;
 
 import com.pulumi.Pulumi;
 import com.pulumi.core.Output;
-import com.pulumi.resources.Stack;
 import io.bitvelocity.infra.config.ConfigKeys;
 import io.bitvelocity.infra.core.CloudProvider;
 import io.bitvelocity.infra.providers.gcp.GcpCloudProvider;
@@ -11,6 +10,7 @@ import io.bitvelocity.infra.modules.networking.NetworkingModule;
 import io.bitvelocity.infra.modules.kubernetes.KubernetesModule;
 import io.bitvelocity.infra.modules.database.DatabaseModule;
 import io.bitvelocity.infra.modules.messaging.MessagingModule;
+import io.bitvelocity.infra.modules.cache.CacheModule;
 import io.bitvelocity.infra.modules.secrets.SecretsModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  *  3. Instantiate modules (networking -> k8s -> db -> messaging -> secrets)
  *  4. Export outputs for application consumption
  */
-public class AppStack extends Stack {
+public class AppStack {
 
     private static final Logger log = LoggerFactory.getLogger(AppStack.class);
 
@@ -55,14 +55,14 @@ public class AppStack extends Stack {
             var k8s = new KubernetesModule(provider, regionEast);
             var db = new DatabaseModule(provider, regionEast, ordersMode);
             var messaging = new MessagingModule(provider, regionEast, kafkaReplication);
+            var cache = new CacheModule(provider, regionEast);
             var secrets = new SecretsModule(provider);
-            var cache = provider.createRedis("redis-cache", regionEast); // simple, without wrapper module yet
 
             // Exports
             ctx.export("K8S_CLUSTER_NAME", Output.of(k8s.cluster().name()));
             ctx.export("POSTGRES_ORDERS_RW_ENDPOINT", db.ordersDb().rwEndpoint());
             ctx.export("KAFKA_BROKERS_EAST", messaging.messaging().brokers());
-            ctx.export("REDIS_CACHE_HOST", cache.host());
+            ctx.export("REDIS_CACHE_HOST", cache.cache().host());
             ctx.export("VAULT_ADDR", secrets.secretStore().address());
         });
     }

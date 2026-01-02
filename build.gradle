@@ -13,13 +13,12 @@ repositories {
     mavenCentral()
 }
 
-def pulumiVersion = '0.13.0' // adjust to latest if needed
+def pulumiVersion = '0.13.0' // Core Pulumi version
 
 dependencies {
     implementation "com.pulumi:pulumi:${pulumiVersion}"
-    implementation "com.pulumi:aws:${pulumiVersion}" // (future use; harmless now)
-    implementation "com.pulumi:gcp:${pulumiVersion}" // (future stub)
-    implementation "com.pulumi:kubernetes:${pulumiVersion}"
+    // Cloud providers will be added when implementing real GCP/AWS support
+    // For now, the local provider doesn't need cloud SDK dependencies
     implementation "org.slf4j:slf4j-simple:2.0.13"
 }
 
